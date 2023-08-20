@@ -3,12 +3,12 @@ import string
 text = open("./read.txt","r",encoding="utf-8").read()
 lower_case = text.lower()
 cleaned_text = lower_case.translate(str.maketrans("","",string.punctuation))
-print(cleaned_text)
+#print(cleaned_text)
 
 #tokenization 
 
 tokenized_words = cleaned_text.split(" ")
-print(tokenized_words)
+#print(tokenized_words)
 
 #Stop Words
 stop_words = stop_words = ["i", "me", "my", "myself", "we", "our", "ours",          "ourselves", "you", "your", "yours", "yourself",
@@ -28,4 +28,24 @@ for i in tokenized_words:
     if i not in stop_words:
         final_words.append(i)
 
-print(final_words)
+#print(final_words)
+
+
+
+#NLP Emotion Algorithm 
+from collections import Counter
+emotion_list = []
+count = 0
+
+with open("emotions.txt","r") as r:
+    for line in r:
+        clear_line = line.replace("\n","").replace(",","").replace("'","").strip()
+        word,emotion = clear_line.split(":")
+        
+        if word in final_words:
+           emotion_list.append(emotion)    
+
+print(emotion_list)
+w = Counter(emotion_list)
+
+print(w)
